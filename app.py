@@ -23,17 +23,17 @@ machine = TocMachine(
             "dest": "state_for_selection",
             "conditions": "is_going_to_state_for_selection",
         },
-		{
+        {
             "trigger": "wait_for_selection",
             "source": "state_for_selection",
             "dest": "state_for_homework_management",
             "conditions": "is_going_to_state_for_homework_management",
         },
         {
-			"trigger": "go_back", 
-			"source": ["state_for_selection", "state_for_homework_management"],
-			"dest": "start_state"
-		},
+            "trigger": "go_back", 
+            "source": ["state_for_selection", "state_for_homework_management"],
+            "dest": "start_state"
+        },
     ],
     initial="start_state",
     auto_transitions=False,

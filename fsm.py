@@ -64,11 +64,11 @@ class TocMachine(GraphMachine):
             )
         )
         
-		# Send the button template to the user.
+        # Send the button template to the user.
         reply_token = event.reply_token
         send_button_message(reply_token, buttons_template_message)
 		
-		# Go back to user state.
+        # Go back to user state.
         # self.go_back()
 	
 
