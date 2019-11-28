@@ -15,23 +15,84 @@ load_dotenv()
 
 # Create a machine instance with the states configured.
 machine = TocMachine(
-    states=["start_state", "state_for_selection", "state_for_homework_management"],
+    states=["start_state", "state_for_selection", "state_for_homework_management", "state_for_exam_management", 
+        "state_for_add_homework", "state_for_examine_homework", "state_for_add_exam", "state_for_examine_exam"],
     transitions=[
         {
+            # "Initial state" to "selection state".
             "trigger": "prepare_for_user_start",
             "source": "start_state",
             "dest": "state_for_selection",
             "conditions": "is_going_to_state_for_selection",
         },
         {
+            # "selection state" to "homework management state".
             "trigger": "wait_for_selection",
             "source": "state_for_selection",
             "dest": "state_for_homework_management",
             "conditions": "is_going_to_state_for_homework_management",
         },
         {
+            # "selection state" to "exam management state".
+            "trigger": "wait_for_selection",
+            "source": "state_for_selection",
+            "dest": "state_for_exam_management",
+            "conditions": "is_going_to_state_for_exam_management",
+        },
+        {
+            # "homework management state" to "add homework state".
+            "trigger": "wait_for_selection_homework",
+            "source": "state_for_homework_management",
+            "dest": "state_for_add_homework",
+            "conditions": "is_going_to_state_for_add_homework",
+        },
+        {
+            # "homework management state" to "examine homework state".
+            "trigger": "wait_for_selection_homework",
+            "source": "state_for_homework_management",
+            "dest": "state_for_examine_homework",
+            "conditions": "is_going_to_state_for_examine_homework",
+        },
+        {
+            # "homework management state" back to "selection state".
+            "trigger": "is_back_to_selection",
+            "source": "state_for_homework_management",
+            "dest": "state_for_selection",
+            "conditions": "is_going_back_to_state_for_selection",
+        },
+        {
+            # "exam management state" to "add exam state".
+            "trigger": "wait_for_selection_exam",
+            "source": "state_for_exam_management",
+            "dest": "state_for_add_exam",
+            "conditions": "is_going_to_state_for_add_exam",
+        },
+        {
+            # "exam management state" to "examine exam state".
+            "trigger": "wait_for_selection_exam",
+            "source": "state_for_exam_management",
+            "dest": "state_for_examine_exam",
+            "conditions": "is_going_to_state_for_examine_exam",
+        },
+        {
+            # "exam management state" back to "selection state".
+            "trigger": "is_back_to_selection",
+            "source": "state_for_exam_management",
+            "dest": "state_for_selection",
+            "conditions": "is_going_back_to_state_for_selection",
+        },
+        {
+            # Back to "state_for_selection".
+            "trigger": "go_to_menu", 
+            "source": ["state_for_homework_management", "state_for_exam_management", "state_for_add_homework",
+                       "state_for_examine_homework", "state_for_add_exam", "state_for_examine_exam"],
+            "dest": "state_for_selection"
+        },
+        {
+            # Back to "initial state".
             "trigger": "go_back", 
-            "source": ["state_for_selection", "state_for_homework_management"],
+            "source": ["state_for_selection", "state_for_homework_management", "state_for_exam_management", "state_for_add_homework",
+                       "state_for_examine_homework", "state_for_add_exam", "state_for_examine_exam"],
             "dest": "start_state"
         },
     ],
@@ -96,7 +157,22 @@ def webhook_handler():
         elif machine.state == "state_for_selection":
             response = machine.wait_for_selection(event)
             if response == False:
-                send_text_message(event.reply_token, "Fail to enter homework management.")
+                send_text_message(event.reply_token, "Fail to select one.")
+        elif machine.state == "state_for_homework_management":
+            response = machine.wait_for_selection_homework(event)
+            if response == False:
+                response2 = machine.is_back_to_selection(event)
+                if response2 == False:
+                    send_text_message(event.reply_token, "Homework fail.")
+        elif machine.state == "state_for_exam_management":
+            response = machine.wait_for_selection_exam(event)
+            if response == False:
+                response2 = machine.is_back_to_selection(event)
+                if response2 == False:
+                    send_text_message(event.reply_token, "Exam fail.") 
+        elif machine.state == "state_for_add_homework":
+            machine.add_homework(event)
+            
 
     return "OK"
 
