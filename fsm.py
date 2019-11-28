@@ -36,47 +36,50 @@ class TocMachine(GraphMachine):
         self.machine = GraphMachine(model=self, **machine_configs)
 
     # Check whether transition to state 1.
-    def is_going_to_state_for_selection(self, event):
+    def check_user_start(self, event):
         text = event.message.text
-        return text.lower() == "go"
+        if text.lower() == "go":
+            self.go_to_menu(event)
+        else:
+            send_text_message(event.reply_token, "Enter \"go\" to get started.")
 
     # Check whether transition to state 2.
-    def is_going_to_state_for_homework_management(self, event):
+    def check_state_for_homework_and_exam_management(self, event):
         text = event.message.text
-        return text.lower() == "homework management"
+        if text.lower() == "homework management":
+            self.go_to_homework_management(event)
+        elif text.lower() == "exam management":
+            self.go_to_exam_management(event)
+        else:
+            send_text_message(event.reply_token, "Fail to select neither homework nor exam.")
         
     # Check whether transition to state 2.
-    def is_going_to_state_for_exam_management(self, event):
+    def check_state_for_homework_operation(self, event):
         text = event.message.text
-        return text.lower() == "exam management"
-        
-    # Check whether transition to state 2.
-    def is_going_to_state_for_add_homework(self, event):
-        text = event.message.text
-        return text.lower() == "add"
+        if text.lower() == "add":
+            self.go_to_add_homework(event)
+        elif text.lower() == "examine":
+            self.go_to_examine_homework(event)
+        elif text.lower() == "back":
+            self.go_back_to_menu_from_homework(event)
+        else:
+            send_text_message(event.reply_token, "Homework fail.")
     
     # Check whether transition to state 2.
-    def is_going_to_state_for_examine_homework(self, event):
+    def check_state_for_exam_operation(self, event):
         text = event.message.text
-        return text.lower() == "examine"
+        if text.lower() == "add":
+            self.go_to_add_exam(event)
+        elif text.lower() == "examine":
+            self.go_to_examine_exam(event)
+        elif text.lower() == "back":
+            self.go_back_to_menu_from_exam(event)
+        else:
+            send_text_message(event.reply_token, "Exam fail.")
         
-    # Check whether transition to state 2.
-    def is_going_to_state_for_add_exam(self, event):
-        text = event.message.text
-        return text.lower() == "add"
-        
-    # Check whether transition to state 2.
-    def is_going_to_state_for_examine_exam(self, event):
-        text = event.message.text
-        return text.lower() == "examine"
-        
-    # Check whether transition to state 2.
-    def is_going_back_to_state_for_selection(self, event):
-        text = event.message.text
-        return text.lower() == "back"
 
     # Code for just entering state 1.
-    def on_enter_state_for_selection(self, event):
+    def on_enter_state_for_menu(self, event):
         print("I'm entering state1")
 		
 		# Create a Line button template for interaction.
@@ -88,17 +91,13 @@ class TocMachine(GraphMachine):
                 text='Please select',
                 actions=[
                     MessageAction(
-                        label='Homework management',
-                        text='Homework management'
+                        label='Homework Management',
+                        text='Homework Management'
                     ),
 					MessageAction(
-                        label='Exam management',
-                        text='Exam management'
+                        label='Exam Management',
+                        text='Exam Management'
                     ),
-                    URIAction(
-                        label='uri',
-                        uri='http://example.com/'
-                    )
                 ]
             )
         )
@@ -201,20 +200,12 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "you can examine exam")
         self.go_back()
-
-    # Code for just exiting state 1.
-    def on_exit_state1(self):
-        print("Leaving state1")
-
-    # Code for just exiting state 2.
-    def on_exit_state2(self):
-        print("Leaving state2")
         
     # To add a new homework.
     def add_homework(self, event):
         text = event.message.text
         if text.lower() == "back":
-            self.go_to_menu(event);
+            self.go_back_to_menu(event);
         else:
             info_list = text.split(",")
             if len(info_list) == 2:
