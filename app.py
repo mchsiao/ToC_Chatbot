@@ -16,7 +16,7 @@ load_dotenv()
 # Create a machine instance with the states configured.
 machine = TocMachine(
     states=["start_state", "state_for_menu", "state_for_homework_management", "state_for_exam_management", 
-        "state_for_add_homework", "state_for_examine_homework", "state_for_add_exam", "state_for_examine_exam"],
+        "state_for_add_homework", "state_for_delete_homework", "state_for_examine_homework", "state_for_add_exam", "state_for_delete_exam", "state_for_examine_exam"],
     transitions=[
         {
             # "Initial state" to "selection state".
@@ -49,10 +49,10 @@ machine = TocMachine(
             "dest": "state_for_examine_homework",
         },
         {
-            # "homework management state" back to "selection state".
-            "trigger": "go_back_to_menu_from_homework",
+            # "homework management state" to "delete homework state".
+            "trigger": "go_to_delete_homework",
             "source": "state_for_homework_management",
-            "dest": "state_for_menu",
+            "dest": "state_for_delete_homework",
         },
         {
             # "exam management state" to "add exam state".
@@ -67,23 +67,35 @@ machine = TocMachine(
             "dest": "state_for_examine_exam",
         },
         {
-            # "exam management state" back to "selection state".
-            "trigger": "go_back_to_menu_from_exam",
+            # "exam management state" to "delete exam state".
+            "trigger": "go_to_delete_exam",
             "source": "state_for_exam_management",
-            "dest": "state_for_menu",
+            "dest": "state_for_delete_exam",
+        },
+        {
+            # Back to "homework management state".
+            "trigger": "go_back_to_homework_management",
+            "source": ["state_for_add_homework", "state_for_examine_homework", "state_for_delete_homework"],
+            "dest": "state_for_homework_management",
+        },
+        {
+            # Back to "exam management state".
+            "trigger": "go_back_to_exam_management",
+            "source": ["state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam"],
+            "dest": "state_for_exam_management",
         },
         {
             # Back to "state_for_menu".
             "trigger": "go_back_to_menu", 
             "source": ["state_for_homework_management", "state_for_exam_management", "state_for_add_homework",
-                       "state_for_examine_homework", "state_for_add_exam", "state_for_examine_exam"],
+                       "state_for_examine_homework", "state_for_delete_homework", "state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam"],
             "dest": "state_for_menu"
         },
         {
             # Back to "initial state".
             "trigger": "go_back", 
             "source": ["state_for_menu", "state_for_homework_management", "state_for_exam_management", "state_for_add_homework",
-                       "state_for_examine_homework", "state_for_add_exam", "state_for_examine_exam"],
+                       "state_for_examine_homework", "state_for_delete_homework", "state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam"],
             "dest": "start_state"
         },
     ],
@@ -151,6 +163,16 @@ def webhook_handler():
             machine.check_state_for_exam_operation(event)
         elif machine.state == "state_for_add_homework":
             machine.add_homework(event)
+        elif machine.state == "state_for_add_exam":
+            machine.add_exam(event)
+        elif machine.state == "state_for_examine_homework":
+            machine.examine_homework(event)
+        elif machine.state == "state_for_examine_exam":
+            machine.examine_exam(event)
+        elif machine.state == "state_for_delete_homework":
+            machine.delete_homework(event)
+        elif machine.state == "state_for_delete_exam":
+            machine.delete_exam(event)
             
 
     return "OK"
