@@ -41,7 +41,25 @@ class TocMachine(GraphMachine):
         if text.lower() == "go":
             self.go_to_menu(event)
         else:
-            send_text_message(event.reply_token, "Start with \"Go\".")
+            # Create a Line button template for interaction.
+            buttons_template_message = TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    thumbnail_image_url='https://cise-egypt.com/wp-content/uploads/2019/09/WELCOME-ST-IVES.jpg',
+                    title='This is a task manager.',
+                    text='Click \"GO\" to get started!',
+                    actions=[
+                        MessageAction(
+                            label='GO',
+                            text='GO'
+                        ),
+                    ]
+                )
+            )
+        
+            # Send the button template to the user.
+            send_button_message(event.reply_token, buttons_template_message)
+
 
     # Check whether transition to state_for_homework_management or state_for_exam_management.
     def check_state_for_homework_and_exam_management(self, event):
@@ -177,7 +195,25 @@ class TocMachine(GraphMachine):
 
     # Enter state_for_add_homework, reply with notification.
     def on_enter_state_for_add_homework(self, event):
-        send_text_message(event.reply_token, "Enter \"Homework, Deadline\" to add a new homework.\n\nEnter \"Back\" to show the menu.")
+        # Create a Line button template for interaction.
+        buttons_template_message = TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://icon-library.net/images/homework-icon-png/homework-icon-png-5.jpg',
+                title='Add a new homework.',
+                text='Enter \"Homework, Deadline\" \nto add a new homework.',
+                actions=[
+                    MessageAction(
+                        label='Back',
+                        text='Back'
+                    ),
+                ]
+            )
+        )
+
+        # Send the button template to the user.
+        send_button_message(event.reply_token, buttons_template_message)
+        
         
     # Enter state_for_examine_homework, call another member function.
     def on_enter_state_for_examine_homework(self, event):
@@ -202,7 +238,24 @@ class TocMachine(GraphMachine):
         
     # Enter state_for_add_exam, reply with notification.
     def on_enter_state_for_add_exam(self, event):
-        send_text_message(event.reply_token, "Enter \"Exam, Date\" to add a new exam.\n\nEnter \"Back\" to show the menu.")
+        # Create a Line button template for interaction.
+        buttons_template_message = TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://cdn4.iconfinder.com/data/icons/school-and-education-1-1/128/7-512.png',
+                title='Add a new exam.',
+                text='Enter \"Exam, Date\"\nto add a new exam.',
+                actions=[
+                    MessageAction(
+                        label='Back',
+                        text='Back'
+                    ),
+                ]
+            )
+        )
+
+        # Send the button template to the user.
+        send_button_message(event.reply_token, buttons_template_message)
         
     # Enter state_for_examine_exam, call another member function.
     def on_enter_state_for_examine_exam(self, event):
@@ -233,9 +286,28 @@ class TocMachine(GraphMachine):
         else:
             info_list = text.split(",")
             if len(info_list) == 2:
-                send_text_message(event.reply_token, "Save successfully!\n\nEnter next homework or enter \"Back\".")
+                reply_message = "Save successfully!\nContinue to enter next homework."
             else:
-                send_text_message(event.reply_token, "Please follow the format.")
+                reply_message = "Please follow the format."
+            
+            # Create a Line button template for interaction.
+            buttons_template_message = TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    thumbnail_image_url='https://icon-library.net/images/homework-icon-png/homework-icon-png-5.jpg',
+                    title='Notification',
+                    text=reply_message,
+                    actions=[
+                        MessageAction(
+                            label='Back',
+                            text='Back'
+                        ),
+                    ]
+                )
+            )
+
+            # Send the button template to the user.
+            send_button_message(event.reply_token, buttons_template_message)
         
             self.homework_name.append(info_list[0])
             self.homework_deadline.append(info_list[1])
@@ -248,9 +320,28 @@ class TocMachine(GraphMachine):
         else:
             info_list = text.split(",")
             if len(info_list) == 2:
-                send_text_message(event.reply_token, "Save successfully!\n\nEnter next exam or enter \"Back\".")
+                reply_message = "Save successfully!\nContinue to enter next exam."
             else:
-                send_text_message(event.reply_token, "Please follow the format.")
+                reply_message = "Please follow the format."
+            
+            # Create a Line button template for interaction.
+            buttons_template_message = TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    thumbnail_image_url='https://cdn4.iconfinder.com/data/icons/school-and-education-1-1/128/7-512.png',
+                    title='Notification',
+                    text=reply_message,
+                    actions=[
+                        MessageAction(
+                            label='Back',
+                            text='Back'
+                        ),
+                    ]
+                )
+            )
+
+            # Send the button template to the user.
+            send_button_message(event.reply_token, buttons_template_message)
         
             self.exam_name.append(info_list[0])
             self.exam_date.append(info_list[1])
@@ -302,7 +393,7 @@ class TocMachine(GraphMachine):
             self.go_back_to_homework_management(event)
         else:
             if len(self.homework_name) == 0:
-                reply_message = "No tracked homework for deletion.\n\n"
+                reply_message = "No tracked homework for deletion."
             else:  
                 is_target_found = False
                 target_index = 0
@@ -315,12 +406,28 @@ class TocMachine(GraphMachine):
                 if is_target_found == True:
                     del self.homework_name[target_index]
                     del self.homework_deadline[target_index]
-                    reply_message = "Delete successfully!\n\n"
+                    reply_message = "Delete successfully!"
                 else:
-                    reply_message = "No such homework.\n\n"
+                    reply_message = "No such homework."
                     
-            reply_message += "Enter \"Back\" to show the menu."
-            send_text_message(event.reply_token, reply_message)
+                # Create a Line button template for interaction.
+                buttons_template_message = TemplateSendMessage(
+                    alt_text='Buttons template',
+                    template=ButtonsTemplate(
+                        thumbnail_image_url='https://icon-library.net/images/homework-icon-png/homework-icon-png-5.jpg',
+                        title='Notification',
+                        text=reply_message,
+                        actions=[
+                            MessageAction(
+                                label='Back',
+                                text='Back'
+                            ),
+                        ]
+                    )
+                )
+
+                # Send the button template to the user.
+                send_button_message(event.reply_token, buttons_template_message)
                 
     # If it's in state_for_delete_exam, call this function to delete tracked exam.
     def delete_exam(self, event):
@@ -329,7 +436,7 @@ class TocMachine(GraphMachine):
             self.go_back_to_exam_management(event)
         else:
             if len(self.exam_name) == 0:
-                reply_message = "No tracked exam for deletion.\n\n"
+                reply_message = "No tracked exam for deletion."
             else:  
                 is_target_found = False
                 target_index = 0
@@ -342,10 +449,28 @@ class TocMachine(GraphMachine):
                 if is_target_found == True:
                     del self.exam_name[target_index]
                     del self.exam_date[target_index]
-                    reply_message = "Delete successfully!\n\n"
+                    reply_message = "Delete successfully!"
                 else:
-                    reply_message = "No such exam.\n\n"
+                    reply_message = "No such exam."
                     
-            reply_message += "Enter \"Back\" to show the menu."
-            send_text_message(event.reply_token, reply_message)
+                # Create a Line button template for interaction.
+                buttons_template_message = TemplateSendMessage(
+                    alt_text='Buttons template',
+                    template=ButtonsTemplate(
+                        thumbnail_image_url='https://cdn4.iconfinder.com/data/icons/school-and-education-1-1/128/7-512.png',
+                        title='Notification',
+                        text=reply_message,
+                        actions=[
+                            MessageAction(
+                                label='Back',
+                                text='Back'
+                            ),
+                        ]
+                    )
+                )
+
+                # Send the button template to the user.
+                send_button_message(event.reply_token, buttons_template_message)
+                # test
+                    
         
