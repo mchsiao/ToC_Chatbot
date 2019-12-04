@@ -1,4 +1,5 @@
 from transitions.extensions import GraphMachine
+
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     SourceUser, SourceGroup, SourceRoom,
@@ -17,7 +18,7 @@ from linebot.models import (
 
 from utils import send_text_message
 from utils import send_button_message
-
+from utils import send_push_message
 
 class TocMachine(GraphMachine):
     
@@ -222,19 +223,38 @@ class TocMachine(GraphMachine):
     # Enter state_for_delete_homework, reply with notification.
     def on_enter_state_for_delete_homework(self, event):
         if len(self.homework_name) == 0:
-            reply_message = "No tracked homework for deletion.\n\n"
+            reply_message = "No traced homework for deletion."
         else:
-            reply_message = "Tracked homework are:\n\n"
+            reply_message = "Select one homework for deletion."    
+        # Create a Line button template for interaction.
+        buttons_template_message = TemplateSendMessage(
+        alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://icon-library.net/images/homework-icon-png/homework-icon-png-5.jpg',
+                title='Delete a traced homework.',
+                text=reply_message,
+                actions=[
+                    MessageAction(
+                        label='Back',
+                        text='Back'
+                    ),
+                ]
+            )
+        )
+        # Send the button template to the user.
+        send_button_message(event.reply_token, buttons_template_message)
+        
+        if (reply_message != "No traced homework for deletion."):
+            reply_message_2 = ""
             for index in range(len(self.homework_name)):
-                reply_message += "Homework: "
-                reply_message += self.homework_name[index]
-                reply_message += "\nDeadline: "
-                reply_message += self.homework_deadline[index]
-                reply_message += "\n\n"
-            reply_message += "Enter the homework you want to untrack.\n\n"
+                reply_message_2 += "Homework: "
+                reply_message_2 += self.homework_name[index]
+                reply_message_2 += "\nDeadline: "
+                reply_message_2 += self.homework_deadline[index]
+                if index != (len(self.homework_name) - 1):
+                    reply_message_2 += "\n\n"
             
-        reply_message += "Enter \"Back\" to show the menu."
-        send_text_message(event.reply_token, reply_message)
+            send_push_message(event.source.user_id, reply_message_2)
         
     # Enter state_for_add_exam, reply with notification.
     def on_enter_state_for_add_exam(self, event):
@@ -264,19 +284,38 @@ class TocMachine(GraphMachine):
     # Enter state_for_delete_exam, reply with notification.
     def on_enter_state_for_delete_exam(self, event):
         if len(self.exam_name) == 0:
-            reply_message = "No tracked exam for deletion.\n\n"
+            reply_message = "No traced exam for deletion."
         else:
-            reply_message = "Tracked exam are:\n\n"
+            reply_message = "Select one exam for deletion."
+        # Create a Line button template for interaction.
+        buttons_template_message = TemplateSendMessage(
+        alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://cdn4.iconfinder.com/data/icons/school-and-education-1-1/128/7-512.png',
+                title='Delete a traced exam.',
+                text=reply_message,
+                actions=[
+                    MessageAction(
+                        label='Back',
+                        text='Back'
+                    ),
+                ]
+            )
+        )
+        # Send the button template to the user.
+        send_button_message(event.reply_token, buttons_template_message)
+        
+        if (reply_message != "No traced exam for deletion."):
+            reply_message_2 = ""
             for index in range(len(self.exam_name)):
-                reply_message += "Exam: "
-                reply_message += self.exam_name[index]
-                reply_message += "\nDate: "
-                reply_message += self.exam_date[index]
-                reply_message += "\n\n"
-            reply_message += "Enter the exam you want to untrack.\n\n"
+                reply_message_2 += "Exam: "
+                reply_message_2 += self.exam_name[index]
+                reply_message_2 += "\nDate: "
+                reply_message_2 += self.exam_date[index]
+                if index != (len(self.exam_name) - 1):
+                    reply_message_2 += "\n\n"
             
-        reply_message += "Enter \"Back\" to show the menu."
-        send_text_message(event.reply_token, reply_message)
+            send_push_message(event.source.user_id, reply_message_2)
         
     # If it's in state_for_add_homework, call this function to add new homework.
     def add_homework(self, event):
@@ -353,18 +392,38 @@ class TocMachine(GraphMachine):
             self.go_back_to_homework_management(event)
         else:
             if len(self.homework_name) == 0:
-                reply_message = "No tracked homework.\n\n"
+                reply_message = "No traced homework."
             else:
-                reply_message = "Tracked homework are:\n\n"
-                for index in range(len(self.homework_deadline)):
-                    reply_message += "Homework: "
-                    reply_message += self.homework_name[index]
-                    reply_message += "\nDeadline: "
-                    reply_message += self.homework_deadline[index]
-                    reply_message += "\n\n"    
+                reply_message = "Your homework are in the following."    
+            # Create a Line button template for interaction.
+            buttons_template_message = TemplateSendMessage(
+            alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    thumbnail_image_url='https://icon-library.net/images/homework-icon-png/homework-icon-png-5.jpg',
+                    title='Traced Homework',
+                    text=reply_message,
+                    actions=[
+                        MessageAction(
+                            label='Back',
+                            text='Back'
+                        ),
+                    ]
+                )
+            )
+            # Send the button template to the user.
+            send_button_message(event.reply_token, buttons_template_message)
+        
+            if (reply_message != "No traced homework."):
+                reply_message_2 = ""
+                for index in range(len(self.homework_name)):
+                    reply_message_2 += "Homework: "
+                    reply_message_2 += self.homework_name[index]
+                    reply_message_2 += "\nDeadline: "
+                    reply_message_2 += self.homework_deadline[index]
+                    if index != (len(self.homework_name) - 1):
+                        reply_message_2 += "\n\n"
             
-            reply_message += "Enter \"Back\" to show the menu."
-            send_text_message(event.reply_token, reply_message)
+                send_push_message(event.source.user_id, reply_message_2)
             
     # If it's in state_for_examine_exam, call this function to examine incoming exam.
     def examine_exam(self, event):
@@ -373,19 +432,40 @@ class TocMachine(GraphMachine):
             self.go_back_to_exam_management(event)
         else:
             if len(self.exam_name) == 0:
-                reply_message = "No incoming exam.\n\n" 
+                reply_message = "No incoming exam."
             else:
-                reply_message = "Incoming exam are:\n\n"
-                for index in range(len(self.exam_date)):
-                    reply_message += "Exam: "
-                    reply_message += self.exam_name[index]
-                    reply_message += "\nDate: "
-                    reply_message += self.exam_date[index]
-                    reply_message += "\n\n"    
+                reply_message = "Your exam are in the following.."
+            # Create a Line button template for interaction.
+            buttons_template_message = TemplateSendMessage(
+            alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    thumbnail_image_url='https://cdn4.iconfinder.com/data/icons/school-and-education-1-1/128/7-512.png',
+                    title='Incoming Exam',
+                    text=reply_message,
+                    actions=[
+                        MessageAction(
+                            label='Back',
+                            text='Back'
+                        ),
+                    ]
+                )
+            )
+            # Send the button template to the user.
+            send_button_message(event.reply_token, buttons_template_message)
+        
+            if (reply_message != "No incoming exam."):
+                reply_message_2 = ""
+                for index in range(len(self.exam_name)):
+                    reply_message_2 += "Exam: "
+                    reply_message_2 += self.exam_name[index]
+                    reply_message_2 += "\nDate: "
+                    reply_message_2 += self.exam_date[index]
+                    if index != (len(self.exam_name) - 1):
+                        reply_message_2 += "\n\n"
             
-            reply_message += "Enter \"Back\" to show the menu."
-            send_text_message(event.reply_token, reply_message)
-            
+                send_push_message(event.source.user_id, reply_message_2)               
+       
+       
     # If it's in state_for_delete_homework, call this function to delete tracked homework.
     def delete_homework(self, event):
         text = event.message.text
@@ -471,6 +551,6 @@ class TocMachine(GraphMachine):
 
                 # Send the button template to the user.
                 send_button_message(event.reply_token, buttons_template_message)
-                # test
+                
                     
         

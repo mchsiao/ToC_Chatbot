@@ -37,3 +37,7 @@ def send_button_message(reply_token, button):
     line_bot_api.reply_message(reply_token, button)
 
     return "OK"
+    
+def send_push_message(user_id, text):
+    line_bot_api = LineBotApi(channel_access_token)
+    line_bot_api.push_message(user_id, TextSendMessage(text=text))
