@@ -15,8 +15,9 @@ load_dotenv()
 
 # Create a machine instance with the states configured.
 machine = TocMachine(
-    states=["start_state", "state_for_menu", "state_for_homework_management", "state_for_exam_management", 
-        "state_for_add_homework", "state_for_delete_homework", "state_for_examine_homework", "state_for_add_exam", "state_for_delete_exam", "state_for_examine_exam"],
+    states=["start_state", "state_for_menu", "state_for_homework_management", "state_for_exam_management", "state_for_reminder_management",
+        "state_for_add_homework", "state_for_delete_homework", "state_for_examine_homework", "state_for_add_exam", "state_for_delete_exam", "state_for_examine_exam", 
+        "state_for_add_reminder", "state_for_delete_reminder", "state_for_examine_reminder"],
     transitions=[
         {
             # "Initial state" to "selection state".
@@ -35,6 +36,12 @@ machine = TocMachine(
             "trigger": "go_to_exam_management",
             "source": "state_for_menu",
             "dest": "state_for_exam_management",
+        },
+        {
+            # "selection state" to "reminder management state".
+            "trigger": "go_to_reminder_management",
+            "source": "state_for_menu",
+            "dest": "state_for_reminder_management",
         },
         {
             # "homework management state" to "add homework state".
@@ -73,6 +80,24 @@ machine = TocMachine(
             "dest": "state_for_delete_exam",
         },
         {
+            # "reminder management state" to "add reminder state".
+            "trigger": "go_to_add_reminder",
+            "source": "state_for_reminder_management",
+            "dest": "state_for_add_reminder",
+        },
+        {
+            # "reminder management state" to "examine reminder state".
+            "trigger": "go_to_examine_reminder",
+            "source": "state_for_reminder_management",
+            "dest": "state_for_examine_reminder",
+        },
+        {
+            # "reminder management state" to "delete reminder state".
+            "trigger": "go_to_delete_reminder",
+            "source": "state_for_reminder_management",
+            "dest": "state_for_delete_reminder",
+        },
+        {
             # Back to "homework management state".
             "trigger": "go_back_to_homework_management",
             "source": ["state_for_add_homework", "state_for_examine_homework", "state_for_delete_homework"],
@@ -85,17 +110,25 @@ machine = TocMachine(
             "dest": "state_for_exam_management",
         },
         {
+            # Back to "reminder management state".
+            "trigger": "go_back_to_reminder_management",
+            "source": ["state_for_add_reminder", "state_for_examine_reminder", "state_for_delete_reminder"],
+            "dest": "state_for_reminder_management",
+        },
+        {
             # Back to "state_for_menu".
             "trigger": "go_back_to_menu", 
-            "source": ["state_for_homework_management", "state_for_exam_management", "state_for_add_homework",
-                       "state_for_examine_homework", "state_for_delete_homework", "state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam"],
+            "source": ["state_for_homework_management", "state_for_exam_management", "state_for_reminder_management", "state_for_add_homework",
+                       "state_for_examine_homework", "state_for_delete_homework", "state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam", 
+                       "state_for_add_reminder", "state_for_examine_reminder", "state_for_delete_reminder"],
             "dest": "state_for_menu"
         },
         {
             # Back to "initial state".
             "trigger": "go_back", 
-            "source": ["state_for_menu", "state_for_homework_management", "state_for_exam_management", "state_for_add_homework",
-                       "state_for_examine_homework", "state_for_delete_homework", "state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam"],
+            "source": ["state_for_menu", "state_for_homework_management", "state_for_exam_management", "state_for_reminder_management", "state_for_add_homework",
+                       "state_for_examine_homework", "state_for_delete_homework", "state_for_add_exam", "state_for_examine_exam", "state_for_delete_exam",
+                       "state_for_add_reminder", "state_for_examine_reminder", "state_for_delete_reminder"],
             "dest": "start_state"
         },
     ],
@@ -156,23 +189,31 @@ def webhook_handler():
         if machine.state == "start_state":
             machine.check_user_start(event)
         elif machine.state == "state_for_menu":
-            machine.check_state_for_homework_and_exam_management(event)
+            machine.check_state_for_operation_menu(event)
         elif machine.state == "state_for_homework_management":
             machine.check_state_for_homework_operation(event)
         elif machine.state == "state_for_exam_management":
             machine.check_state_for_exam_operation(event)
+        elif machine.state == "state_for_reminder_management":
+            machine.check_state_for_reminder_operation(event)   
         elif machine.state == "state_for_add_homework":
             machine.add_homework(event)
         elif machine.state == "state_for_add_exam":
             machine.add_exam(event)
+        elif machine.state == "state_for_add_reminder":
+            machine.add_reminder(event)
         elif machine.state == "state_for_examine_homework":
             machine.examine_homework(event)
         elif machine.state == "state_for_examine_exam":
             machine.examine_exam(event)
+        elif machine.state == "state_for_examine_reminder":
+            machine.examine_reminder(event)
         elif machine.state == "state_for_delete_homework":
             machine.delete_homework(event)
         elif machine.state == "state_for_delete_exam":
             machine.delete_exam(event)
+        elif machine.state == "state_for_delete_reminder":
+            machine.delete_reminder(event)
             
 
     return "OK"
