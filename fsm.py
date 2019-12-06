@@ -44,6 +44,19 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
         
+    # Reset all records.
+    def reset_states(self, event):
+    
+        del self.homework_name[:]
+        del self.homework_deadline[:]
+        del self.exam_name[:]
+        del self.exam_date[:]
+        del self.reminder[:]
+        del self.reminder_time[:]
+        
+        send_push_message(event.source.user_id, "Reset successfully!")
+        self.go_back(event)
+        
     # Timer.
     def timer(self, event, target_time):
         

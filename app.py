@@ -186,7 +186,9 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         
         # Check whether the event results in state transition.
-        if machine.state == "start_state":
+        if event.message.text.lower() == "reset":
+            machine.reset_states(event)
+        elif machine.state == "start_state":
             machine.check_user_start(event)
         elif machine.state == "state_for_menu":
             machine.check_state_for_operation_menu(event)
