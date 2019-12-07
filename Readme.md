@@ -89,4 +89,86 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `state_for_menu`<br>
     
     * Input: ___Reset___<br>
+    * Destination: `start_state`<br>   
+
+* `state_for_add_homework`:<br>
+    * Input: ___Homework___, ___Deadline___ to add the homework into traced tasks.
+    * Destination: `state_for_add_homework`<br>
+    
+    * Input: ___Back___<br>
+    * Destination: `state_for_homework_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br> 
+    
+* `state_for_add_exam`:<br>
+    * Input: ___Exam___, ___Date___ to add the exam into traced tasks.
+    * Destination: `state_for_add_exam`<br>
+    
+    * Input: ___Back___<br>
+    * Destination: `state_for_exam_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br> 
+    
+* `state_for_add_reminder`:<br>
+    * Input: ___Reminder___, ___Informing___ ___Time___ to add the reminder.
+    * Destination: `state_for_add_reminder`<br>
+    
+    * Input: ___Back___<br>
+    * Destination: `state_for_reminder_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br> 
+    
+* `state_for_delete_homework`:<br>
+    * Input: ___Homework___ to delete the homework in traced tasks, if it exists.
+    * Destination: `state_for_delete_homework`<br>
+    
+    * Input: ___Back___<br>
+    * Destination: `state_for_homework_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br> 
+    
+* `state_for_delete_exam`:<br>
+    * Input: ___Exam___ to delete the exam in traced tasks, if it exists.
+    * Destination: `state_for_delete_exam`<br>
+    
+    * Input: ___Back___<br>
+    * Destination: `state_for_exam_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br>
+
+* `state_for_delete_reminder`:<br>
+    * Input: ___Reminder___ to delete the reminder if it exists.
+    * Destination: `state_for_delete_reminder`<br>
+    
+    * Input: ___Back___<br>
+    * Destination: `state_for_reminder_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br>   
+
+* `state_for_examine_homework`:<br>
+    * Input: ___Back___<br>
+    * Destination: `state_for_homework_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br>
+
+* `state_for_examine_exam`:<br>
+    * Input: ___Back___<br>
+    * Destination: `state_for_exam_management`<br>
+    
+    * Input: ___Reset___<br>
+    * Destination: `start_state`<br>
+
+* `state_for_examine_reminder`:<br>
+    * Input: ___Back___<br>
+    * Destination: `state_for_reminder_management`<br>
+    
+    * Input: ___Reset___<br>
     * Destination: `start_state`<br>    
+    
