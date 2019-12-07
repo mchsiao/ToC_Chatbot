@@ -26,23 +26,22 @@ from datetime import datetime
 
 class TocMachine(GraphMachine):
     
-    # Homework name list.
-    homework_name = []
-    # Homework deadline list.
-    homework_deadline = []
-    # Exam name list.
-    exam_name = []
-    # Exam date list.
-    exam_date = []
-    # Reminder list.
-    reminder = []
-    # Reminder time.
-    reminder_time = []
-    
     # Constructor.
     # GraphMachine is a light-weight state machine implementation.
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
+        # Homework name list.
+        self.homework_name = []
+        # Homework deadline list.
+        self.homework_deadline = []
+        # Exam name list.
+        self.exam_name = []
+        # Exam date list.
+        self.exam_date = []
+        # Reminder list.
+        self.reminder = []
+        # Reminder time.
+        self.reminder_time = []
         
     # Reset all records.
     def reset_states(self, event):
