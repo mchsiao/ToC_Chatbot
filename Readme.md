@@ -15,67 +15,67 @@ Send messages to the bot for task management.<br>
 The initial state is set to be `start_state`.
 The messages can be sent either by typing or using the buttons.
 
-* start_state:<br>
+* `start_state`:<br>
     * Input: Go<br>
     * Destination: `state_for_menu`<br>
     
-* state_for_menu:<br>
+* `state_for_menu`:<br>
     * Input: Homework Management<br>
-    * Destination: state_for_homework_management<br>
+    * Destination: `state_for_homework_management`<br>
     
     * Input: Exam Management<br>
-    * Destination: state_for_exam_management<br>
+    * Destination: `state_for_exam_management`<br>
     
     * Input: Reminder Management<br>
-    * Destination: state_for_reminder_management<br>
+    * Destination: `state_for_reminder_management`<br>
 
     * Input: Reset<br>
-    * Destination: start_state<br>
+    * Destination: `start_state`<br>
     
-* state_for_homework_management:<br>
+* `state_for_homework_management`:<br>
     * Input: Add<br>
-    * Destination: state_for_add_homework<br>
+    * Destination: `state_for_add_homework`<br>
     
     * Input: Examine<br>
-    * Destination: state_for_examine_homework<br>
+    * Destination: `state_for_examine_homework`<br>
     
     * Input: Delete<br>
-    * Destination: state_for_delete_homework<br>
+    * Destination: `state_for_delete_homework`<br>
     
     * Input: Back<br>
-    * Destination: state_for_menu<br>
+    * Destination: `state_for_menu`<br>
     
     * Input: Reset<br>
-    * Destination: start_state<br>
+    * Destination: `start_state`<br>
     
-* state_for_exam_management:<br>
+* `state_for_exam_management`:<br>
     * Input: Add<br>
-    * Destination: state_for_add_exam<br>
+    * Destination: `state_for_add_exam`<br>
     
     * Input: Examine<br>
-    * Destination: state_for_examine_exam<br>
+    * Destination: `state_for_examine_exam`<br>
     
     * Input: Delete<br>
-    * Destination: state_for_delete_exam<br>
+    * Destination: `state_for_delete_exam`<br>
     
     * Input: Back<br>
-    * Destination: state_for_menu<br>
+    * Destination: `state_for_menu`<br>
     
     * Input: Reset<br>
-    * Destination: start_state<br>
+    * Destination: `start_state`<br>
     
-* state_for_reminder_management:<br>
+* `state_for_reminder_management`:<br>
     * Input: Add<br>
-    * Destination: state_for_add_reminder<br>
+    * Destination: `state_for_add_reminder`<br>
     
     * Input: Examine<br>
-    * Destination: state_for_examine_reminder<br>
+    * Destination: `state_for_examine_reminder`<br>
     
     * Input: Delete<br>
-    * Destination: state_for_delete_reminder<br>
+    * Destination: `state_for_delete_reminder`<br>
     
     * Input: Back<br>
-    * Destination: state_for_menu<br>
+    * Destination: `state_for_menu`<br>
     
     * Input: Reset<br>
-    * Destination: start_state<br>    
+    * Destination: `start_state`<br>    
