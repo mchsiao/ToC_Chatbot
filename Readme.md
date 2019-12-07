@@ -1,6 +1,6 @@
 # Personal Assistant Chatbot
-A Line bot based on finite state machine runs on heroku<br>
-Send messages to the bot for task management<br>
+A Line bot based on finite state machine runs on heroku.<br>
+Send messages to the bot for task management.<br>
 
 ## Setup
 ### Prerequisite
@@ -12,12 +12,12 @@ Send messages to the bot for task management<br>
 ![fsm](./fsm.png)
 
 ## State Transition
-The initial state is set to be `start_state`
+The initial state is set to be `start_state`.
+The messages can be sent either by typing or using the buttons.
 
 * start_state:
-
-    <tab>Input: Go<br>
-    <tab>Destination: state_for_menu<br>
+        <tab>Input: Go<br>
+        <tab>Destination: state_for_menu<br>
     
 * state_for_menu:
 
