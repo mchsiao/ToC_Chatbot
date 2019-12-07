@@ -11,7 +11,7 @@ Send messages to the bot for task management.<br>
 ## Usage
 ### Three functions provided
 * Homework Management<br>
-    * ***add*** ***delete*** *** examine*** ongoing homework<br>
+    * ___add___, ___delete___, or ___examine___ ongoing homework<br>
 
 
 ## Finite State Machine
