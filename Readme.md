@@ -16,8 +16,8 @@ The initial state is set to be `start_state`.
 The messages can be sent either by typing or using the buttons.
 
 * start_state:<br>
-        Input: Go<br>
-        Destination: state_for_menu<br>
+            Input: Go<br>
+            Destination: state_for_menu<br>
     
 * state_for_menu:
 
