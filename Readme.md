@@ -9,9 +9,9 @@ Send messages to the bot for task management.<br>
 * Line Application
 
 ## Usage
-Three functions provided
-* Homework Management
-** Help manage ongoing homework
+### Three functions provided
+* Homework Management<br>
+** Help manage ongoing homework**<br>
 
 
 ## Finite State Machine
