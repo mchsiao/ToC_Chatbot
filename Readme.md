@@ -92,7 +92,7 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `start_state`<br>   
 
 * `state_for_add_homework`:<br>
-    * Input: ___Homework___, ___Deadline___ to add the homework into traced tasks.
+    * Input: Enter ___Homework___, ___Deadline___ to add the homework into traced tasks.
     * Destination: `state_for_add_homework`<br>
     
     * Input: ___Back___<br>
@@ -102,7 +102,7 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `start_state`<br> 
     
 * `state_for_add_exam`:<br>
-    * Input: ___Exam___, ___Date___ to add the exam into traced tasks.
+    * Input: Enter ___Exam___, ___Date___ to add the exam into traced tasks.
     * Destination: `state_for_add_exam`<br>
     
     * Input: ___Back___<br>
@@ -112,7 +112,7 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `start_state`<br> 
     
 * `state_for_add_reminder`:<br>
-    * Input: ___Reminder___, ___Informing___ ___Time___ to add the reminder.
+    * Input: Enter ___Reminder___, ___Informing___ ___Time___ to add the reminder.
     * Destination: `state_for_add_reminder`<br>
     
     * Input: ___Back___<br>
@@ -122,7 +122,7 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `start_state`<br> 
     
 * `state_for_delete_homework`:<br>
-    * Input: ___Homework___ to delete the homework in traced tasks, if it exists.
+    * Input: Enter traced ___Homework___ to delete the homework in traced tasks, if it exists.
     * Destination: `state_for_delete_homework`<br>
     
     * Input: ___Back___<br>
@@ -132,7 +132,7 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `start_state`<br> 
     
 * `state_for_delete_exam`:<br>
-    * Input: ___Exam___ to delete the exam in traced tasks, if it exists.
+    * Input: Enter traced ___Exam___ to delete the exam in traced tasks, if it exists.
     * Destination: `state_for_delete_exam`<br>
     
     * Input: ___Back___<br>
@@ -142,7 +142,7 @@ The messages can be entered either by typing or pushing the buttons.<br>
     * Destination: `start_state`<br>
 
 * `state_for_delete_reminder`:<br>
-    * Input: ___Reminder___ to delete the reminder if it exists.
+    * Input: Enter traced ___Reminder___ to delete the reminder if it exists.
     * Destination: `state_for_delete_reminder`<br>
     
     * Input: ___Back___<br>
