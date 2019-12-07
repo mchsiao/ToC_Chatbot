@@ -307,7 +307,7 @@ class TocMachine(GraphMachine):
             template=ButtonsTemplate(
                 thumbnail_image_url='https://icon-library.net/images/homework-icon-png/homework-icon-png-5.jpg',
                 title='Add a new homework.',
-                text='Enter \"Homework, Deadline\" \nto add a new homework.',
+                text='Enter \"Homework, Deadline(M/D)\".',
                 actions=[
                     MessageAction(
                         label='Back',
@@ -447,7 +447,7 @@ class TocMachine(GraphMachine):
             template=ButtonsTemplate(
                 thumbnail_image_url='https://cdn4.iconfinder.com/data/icons/school-and-education-1-1/128/7-512.png',
                 title='Add a new exam.',
-                text='Enter \"Exam, Date\"\nto add a new exam.',
+                text='Enter \"Exam, Date(M/D)\"\n.',
                 actions=[
                     MessageAction(
                         label='Back',
