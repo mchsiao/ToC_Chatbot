@@ -8,6 +8,12 @@ Send messages to the bot for task management.<br>
 * Heroku(HTTPS Server)
 * Line Application
 
+## Usage
+Three functions provided
+* Homework Management
+** Help manage ongoing homework
+
+
 ## Finite State Machine
 ![fsm](./fsm.png)
 
