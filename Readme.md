@@ -15,9 +15,9 @@ Send messages to the bot for task management.<br>
 The initial state is set to be `start_state`.
 The messages can be sent either by typing or using the buttons.
 
-* start_state:
-        <tab>Input: Go<br>
-        <tab>Destination: state_for_menu<br>
+* start_state:<br>
+        Input: Go<br>
+        Destination: state_for_menu<br>
     
 * state_for_menu:
 
