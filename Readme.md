@@ -12,12 +12,12 @@ Send messages to the bot for task management<br>
 ![fsm](./fsm.png)
 
 ## State Transition
-The initial state is set to be 'start_state'
+The initial state is set to be `start_state`
 
 * start_state:
 
-    Input: Go
-    Destination: state_for_menu
+    <tab>Input: Go<br>
+    <tab>Destination: state_for_menu<br>
     
 * state_for_menu:
 
