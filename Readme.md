@@ -17,69 +17,65 @@ The messages can be sent either by typing or using the buttons.
 
 * start_state:<br>
     * Input: Go<br>
+    * Destination: `state_for_menu`<br>
+    
+* state_for_menu:<br>
+    * Input: Homework Management<br>
+    * Destination: state_for_homework_management<br>
+    
+    * Input: Exam Management<br>
+    * Destination: state_for_exam_management<br>
+    
+    * Input: Reminder Management<br>
+    * Destination: state_for_reminder_management<br>
+
+    * Input: Reset<br>
+    * Destination: start_state<br>
+    
+* state_for_homework_management:<br>
+    * Input: Add<br>
+    * Destination: state_for_add_homework<br>
+    
+    * Input: Examine<br>
+    * Destination: state_for_examine_homework<br>
+    
+    * Input: Delete<br>
+    * Destination: state_for_delete_homework<br>
+    
+    * Input: Back<br>
     * Destination: state_for_menu<br>
     
-* state_for_menu:
-
-    Input: Homework Management
-    Destination: state_for_homework_management
+    * Input: Reset<br>
+    * Destination: start_state<br>
     
-    Input: Exam Management
-    Destination: state_for_exam_management
+* state_for_exam_management:<br>
+    * Input: Add<br>
+    * Destination: state_for_add_exam<br>
     
-    Input: Reminder Management
-    Destination: state_for_reminder_management
-
-    Input: Reset
-    Destination: start_state
+    * Input: Examine<br>
+    * Destination: state_for_examine_exam<br>
     
-* state_for_homework_management:
-
-    Input: Add
-    Destination: state_for_add_homework
+    * Input: Delete<br>
+    * Destination: state_for_delete_exam<br>
     
-    Input: Examine
-    Destination: state_for_examine_homework
+    * Input: Back<br>
+    * Destination: state_for_menu<br>
     
-    Input: Delete
-    Destination: state_for_delete_homework
+    * Input: Reset<br>
+    * Destination: start_state<br>
     
-    Input: Back
-    Destination: state_for_menu
+* state_for_reminder_management:<br>
+    * Input: Add<br>
+    * Destination: state_for_add_reminder<br>
     
-    Input: Reset
-    Destination: start_state
+    * Input: Examine<br>
+    * Destination: state_for_examine_reminder<br>
     
-* state_for_exam_management:
-
-    Input: Add
-    Destination: state_for_add_exam
+    * Input: Delete<br>
+    * Destination: state_for_delete_reminder<br>
     
-    Input: Examine
-    Destination: state_for_examine_exam
+    * Input: Back<br>
+    * Destination: state_for_menu<br>
     
-    Input: Delete
-    Destination: state_for_delete_exam
-    
-    Input: Back
-    Destination: state_for_menu
-    
-    Input: Reset
-    Destination: start_state
-    
-* state_for_reminder_management:
-
-    Input: Add
-    Destination: state_for_add_reminder
-    
-    Input: Examine
-    Destination: state_for_examine_reminder
-    
-    Input: Delete
-    Destination: state_for_delete_reminder
-    
-    Input: Back
-    Destination: state_for_menu
-    
-    Input: Reset
-    Destination: start_state    
+    * Input: Reset<br>
+    * Destination: start_state<br>    
