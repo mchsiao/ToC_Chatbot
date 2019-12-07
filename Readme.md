@@ -12,6 +12,11 @@ Send messages to the bot for task management.<br>
 ### Three functions provided
 * Homework Management<br>
     * ___add___, ___delete___, or ___examine___ ongoing homework<br>
+* Exam Management<br>
+    * ___add___, ___delete___, or ___examine___ incoming homework<br>
+* Reminder<br>
+    * ___add___, ___delete___, or ___examine___ reserved reminder<br>
+    * Given the specific moment, the Line bot will send reminders to the user automatically.<br>
 
 
 ## Finite State Machine
